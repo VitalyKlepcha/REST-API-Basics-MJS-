@@ -26,7 +26,9 @@
     <show-object-properties value="true" />
     <loaded-nodes>
       <connection connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b">
-        <schema name="mjs_rest" object-types="dataset trigger, sequence, function, constraint, view, column, table, index" />
+        <schema name="mjs_rest" object-types="sequence, column, dataset trigger, index, table, constraint, view, function" />
+        <schema name="pg_catalog" object-types="table, view, function" />
+        <schema name="public" object-types="sequence, column, dataset trigger, index, table, constraint, view, function" />
       </connection>
     </loaded-nodes>
   </component>
@@ -57,8 +59,7 @@ CREATE TABLE tag_gift(
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files>
-      <object connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" object-ref="schemas/mjs_rest/tables/tag_gift" />
-      <object connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" object-ref="schemas/mjs_rest/tables/gift_certificate" />
+      <object connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" object-ref="schemas/mjs_rest/tables/tag" />
     </open-files>
   </component>
   <component name="DBNavigator.Project.DatabaseSessionManager">
@@ -70,6 +71,7 @@ CREATE TABLE tag_gift(
         <condition column="id" operator="=" value="" active="true" />
       </filter>
     </filter-actions>
+    <filter-actions connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" dataset="public.tag" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" dataset="mjs_rest.gift_certificate" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="88d4127d-a6d0-432b-81f9-b5b0e0df4a3b" dataset="mjs_rest.tag_gift" active-filter-id="EMPTY_FILTER" />
   </component>

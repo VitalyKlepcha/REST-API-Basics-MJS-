@@ -1,43 +1,60 @@
 package com.epam.esm.controller;
 
-import com.epam.esm.dao.TagDAO;
+import com.epam.esm.dto.MyResponseBody;
 import com.epam.esm.entity.Tag;
-import com.epam.esm.entity.TestClass;
+import com.epam.esm.exception.TagAlreadyExistException;
+import com.epam.esm.exception.TagNotFoundException;
+import com.epam.esm.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping("/tags")
 public class TagController {
 
     @Autowired
-    public TagController(TagDAO tagDAO) {
-        this.tagDAO = tagDAO;
+    public TagController(TagService tagService) {
+        this.tagService = tagService;
     }
 
-    private TagDAO tagDAO;
+    private TagService tagService;
 
-    @PostMapping(value = "/test",consumes = "application/json")
-    public ResponseEntity test(@RequestBody Tag tag){
+    @PostMapping(consumes = "application/json")
+    public ResponseEntity save(@RequestBody Tag tag) {
         try {
 //            final HttpHeaders httpHeaders= new HttpHeaders();
 //            httpHeaders.setContentType(MediaType.APPLICATION_JSON);
-            tagDAO.save(tag);
+            tagService.save(tag);
             return ResponseEntity.ok("Tag saved");
-        }
-        catch (Exception e){
-            return ResponseEntity.badRequest().body("Tag isn't saved");
+        } catch (TagAlreadyExistException e) {
+            return ResponseEntity.badRequest().body(new MyResponseBody(e.getMessage(),40001));
         }
     }
 
-    @GetMapping(value = "/test",produces = "application/json")
-    public ResponseEntity test2(){
-        return ResponseEntity.ok(new Tag(1,"1"));
+    @GetMapping(produces = "application/json")
+    public ResponseEntity getAll() {
+        return ResponseEntity.ok(tagService.getAll());
+    }
+
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity get(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(tagService.get(id));
+        } catch (TagNotFoundException e) {
+            return ResponseEntity.badRequest().body(new MyResponseBody(e.getMessage(),40000));
+        }
+    }
+
+    @DeleteMapping(value = "/{id}",produces = "application/json")
+    public ResponseEntity delete(@PathVariable int id){
+        try{
+            tagService.delete(id);
+            return ResponseEntity.ok("Tag deleted");
+        }
+        catch (Exception e){
+            return ResponseEntity.badRequest().body(new MyResponseBody(e.getMessage(),40002));
+        }
     }
 }

@@ -15,6 +15,8 @@ import java.sql.DriverManager;
 @ComponentScan("com.epam.esm")
 @EnableWebMvc
 public class SpringConfig {
+
+    //JDBC config
     @Bean
     public DataSource dataSource(){
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
