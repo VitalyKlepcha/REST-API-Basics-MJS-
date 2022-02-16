@@ -1,4 +1,4 @@
-package com.epam.esm.entities;
+package com.epam.esm.entity;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -6,6 +6,9 @@ import java.util.Set;
 public class Tag {
 
     private int id;
+
+    public Tag() {
+    }
 
     private String name;
 

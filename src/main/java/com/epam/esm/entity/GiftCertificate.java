@@ -1,4 +1,4 @@
-package com.epam.esm.entities;
+package com.epam.esm.entity;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
